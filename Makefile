@@ -227,6 +227,12 @@ $(BIN)/copyright: cmd/tools/copyright/licensegen.go
 BUF_VERSION = 0.36.0
 OS = $(shell uname -s)
 ARCH = $(shell $(EMULATE_X86) uname -m)
+
+# Adjust the architecture name if necessary
+ifeq ($(ARCH), aarch64)
+    ARCH := aarch_64
+endif
+
 BUF_URL = https://github.com/bufbuild/buf/releases/download/v$(BUF_VERSION)/buf-$(OS)-$(ARCH)
 # use BUF_VERSION_BIN as a bin prerequisite, not "buf", so the correct version will be used.
 # otherwise this must be a .PHONY rule, or the buf bin / symlink could become out of date.
